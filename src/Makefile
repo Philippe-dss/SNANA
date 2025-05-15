@@ -58,10 +58,11 @@ endif
 
 FFC  = gfortran
 CC   = gcc
+#CC   = c++
 
- EXTRA_FLAGS =
+EXTRA_FLAGS =
 #  EXTRA_FLAGS = -O1    # -ftree-vectorize -ftree-vectorizer-verbose=2
-  PROFILEFLAG = 
+PROFILEFLAG = 
 
 EXTRA_FLAGS = -O2    # xxx RESTORE
 #EXTRA_FLAGS = -g -fbounds-check  # valgrind --leak-check=full 
@@ -70,8 +71,8 @@ EXTRA_FLAGS = -O2    # xxx RESTORE
 GCCVERSION10 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \>= 10)
 
 ifeq ($(GCCVERSION10),0)
-   EXTRA_FLAGS_FORTRAN  = $(EXTRA_FLAGS)
-   EXTRA_FLAGS_C        = $(EXTRA_FLAGS)
+   EXTRA_FLAGS_FORTRAN  = $(EXTRA_FLAGS) -fallow-argument-mismatch -fcommon
+   EXTRA_FLAGS_C        = $(EXTRA_FLAGS) -fcommon
    EXTRA_FLAGS_CPLUS    = 
 else 
 # for gcc v10, allow argument-mismatch errors (9.2020)
